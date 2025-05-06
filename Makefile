@@ -1,15 +1,22 @@
-CC=gcc
-FLAGS=-Wall -g
-FILENAME=01--cat-using-read-write-open-and-close.c
-#FILENAME=02--compare-two-files-and-print-first-line-where-they-differ.c
+CC = gcc
+CFLAGS = -Wall -g
 
-all: build run
+CAT_FILENAME = 01--cat-using-read-write-open-and-close
+COMPARE_FILENAME = 02--compare-two-files-and-print-first-line-where-they-differ
 
-build:
-	$(CC) $(FLAGS) $(FILENAME).c -o $(FILENAME).out
+all: $(CAT_FILENAME) $(COMPARE_FILENAME)
 
-run:
-	$(FILENAME).out
+$(CAT_FILENAME): $(CAT_FILENAME).c
+	$(CC) $(CFLAGS) $(CAT_FILENAME).c -o $(CAT_FILENAME)
+
+$(COMPARE_FILENAME): $(COMPARE_FILENAME).c
+	$(CC) $(CFLAGS) $(COMPARE_FILENAME).c -o $(COMPARE_FILENAME)
+
+run_cat: $(CAT_FILENAME)
+	./$(CAT_FILENAME)
+
+run_compare: $(COMPARE_FILENAME)
+	./$(COMPARE_FILENAME) file1.txt file2.txt
 
 clean:
-	rm -fr $(FILENAME).out $(FILENAME).out.dSYM
+	rm -fr $(CAT_FILENAME) $(COMPARE_FILENAME) *.dSYM
